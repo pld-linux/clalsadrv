@@ -2,7 +2,7 @@ Summary:	clalsadrv library
 Summary(pl):	Biblioteka clalsadrv
 Name:		clalsadrv
 Version:	1.0.1
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		Libraries
 Source0:	http://ftp.debian.org/debian/pool/main/c/%{name}/%{name}_%{version}.orig.tar.gz
@@ -41,9 +41,11 @@ install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}}
 %makeinstall CLALSADRV_LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
         CLALSADRV_INCDIR=$RPM_BUILD_ROOT%{_includedir}
 
-
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post   -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
