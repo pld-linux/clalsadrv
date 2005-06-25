@@ -5,9 +5,10 @@ Version:	1.0.1
 Release:	0.2
 License:	GPL v2
 Group:		Libraries
-Source0:	http://ftp.debian.org/debian/pool/main/c/%{name}/%{name}_%{version}.orig.tar.gz
+Source0:	http://ftp.debian.org/debian/pool/main/c/clalsadrv/%{name}_%{version}.orig.tar.gz
 # Source0-md5:	2f693c52173aac55dcb35dcfca79df91
 URL:		http://packages.qa.debian.org/c/clalsadrv.html
+BuildRequires:	libstdc++-devel
 BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -38,7 +39,8 @@ Pliki nag³ówkowe biblioteki clalsadrv.
 %install
 install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}}
 
-%makeinstall CLALSADRV_LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
+%makeinstall \
+	ALSADRV_LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
         CLALSADRV_INCDIR=$RPM_BUILD_ROOT%{_includedir}
 
 %clean
