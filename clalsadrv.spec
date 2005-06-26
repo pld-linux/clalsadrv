@@ -43,7 +43,7 @@ Pliki nag³ówkowe biblioteki clalsadrv.
 %{__make} \
 	CXX="%{__cxx}" \
 	CPPFLAGS="%{rpmcxxflags} -fPIC -I. -D_REENTRANT -DPOSIX_THREAD_SEMANTICS"
-[M`.[M`.[Ma.
+
 %install
 install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}}
 
