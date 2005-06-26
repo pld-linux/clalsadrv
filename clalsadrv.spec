@@ -1,5 +1,5 @@
-Summary:	clalsadrv library
-Summary(pl):	Biblioteka clalsadrv
+Summary:	ALSA driver C++ access library
+Summary(pl):	Biblioteka dostêpu do sterowników ALSA w C++
 Name:		clalsadrv
 Version:	1.0.1
 Release:	0.2
@@ -16,10 +16,12 @@ BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-clalsadrv library.
+clalsadrv library allows to access ALSA sound card drivers
+in a C++ based program.
 
 %description -l pl
-Biblioteka clalsadrv.
+Biblioteka clalsadrv pozwala na dostêp do sterownika karty
+d¼wiêkowej z poziomu programu napisanego w C++.
 
 %package devel
 Summary:	Header files for clalsadrv library
@@ -41,7 +43,7 @@ Pliki nag³ówkowe biblioteki clalsadrv.
 %{__make} \
 	CXX="%{__cxx}" \
 	CPPFLAGS="%{rpmcxxflags} -fPIC -I. -D_REENTRANT -DPOSIX_THREAD_SEMANTICS"
-
+[M`.[M`.[Ma.
 %install
 install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}}
 
