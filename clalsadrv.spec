@@ -1,5 +1,5 @@
 Summary:	ALSA driver C++ access library
-Summary(pl.UTF-8):   Biblioteka dostępu do sterowników ALSA w C++
+Summary(pl.UTF-8):	Biblioteka dostępu do sterowników ALSA w C++
 Name:		clalsadrv
 Version:	1.0.1
 Release:	0.2
@@ -25,7 +25,7 @@ dźwiękowej z poziomu programu napisanego w C++.
 
 %package devel
 Summary:	Header files for clalsadrv library
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki clalsadrv
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki clalsadrv
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	alsa-lib-devel
