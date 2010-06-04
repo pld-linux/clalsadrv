@@ -16,12 +16,12 @@ BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-clalsadrv library allows to access ALSA sound card drivers
-in a C++ based program.
+clalsadrv library allows to access ALSA sound card drivers in a C++
+based program.
 
 %description -l pl.UTF-8
-Biblioteka clalsadrv pozwala na dostęp do sterownika karty
-dźwiękowej z poziomu programu napisanego w C++.
+Biblioteka clalsadrv pozwala na dostęp do sterownika karty dźwiękowej
+z poziomu programu napisanego w C++.
 
 %package devel
 Summary:	Header files for clalsadrv library
@@ -45,6 +45,7 @@ Pliki nagłówkowe biblioteki clalsadrv.
 	CPPFLAGS="%{rpmcxxflags} -fPIC -I. -D_REENTRANT -DPOSIX_THREAD_SEMANTICS"
 
 %install
+rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}}
 
 %{__make} install \
