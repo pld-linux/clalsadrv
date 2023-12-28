@@ -6,10 +6,10 @@ Release:	0.2
 License:	GPL v2
 Group:		Libraries
 # please use original tarballs in future
-#http://users.skynet.be/solaris/linuxaudio/downloads/clalsadrv-1.0.1.tar.bz2
+#http://kokkinizita.linuxaudio.org/linuxaudio/downloads/%{name}-%{version}.tar.bz2
 Source0:	http://ftp.debian.org/debian/pool/main/c/clalsadrv/%{name}_%{version}.orig.tar.gz
 # Source0-md5:	2f693c52173aac55dcb35dcfca79df91
-URL:		http://users.skynet.be/solaris/linuxaudio/
+URL:		http://kokkinizita.linuxaudio.org/linuxaudio/
 BuildRequires:	alsa-lib-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	sed >= 4.0
@@ -61,9 +61,10 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS
-%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libclalsadrv.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libclalsadrv.so.1
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_includedir}/*.h
+%attr(755,root,root) %{_libdir}/libclalsadrv.so
+%{_includedir}/clalsadrv.h
