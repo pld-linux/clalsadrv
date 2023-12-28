@@ -1,16 +1,15 @@
 Summary:	ALSA driver C++ access library
 Summary(pl.UTF-8):	Biblioteka dostępu do sterowników ALSA w C++
 Name:		clalsadrv
-Version:	1.0.1
-Release:	0.2
+Version:	2.0.0
+Release:	1
 License:	GPL v2
 Group:		Libraries
-# please use original tarballs in future
-#http://kokkinizita.linuxaudio.org/linuxaudio/downloads/%{name}-%{version}.tar.bz2
-Source0:	http://ftp.debian.org/debian/pool/main/c/clalsadrv/%{name}_%{version}.orig.tar.gz
-# Source0-md5:	2f693c52173aac55dcb35dcfca79df91
+Source0:	http://kokkinizita.linuxaudio.org/linuxaudio/downloads/%{name}-%{version}.tar.bz2
+# Source0-md5:	be123e1701e4b6c6300907df949bd71c
 URL:		http://kokkinizita.linuxaudio.org/linuxaudio/
 BuildRequires:	alsa-lib-devel
+BuildRequires:	clthreads-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -29,6 +28,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki clalsadrv
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	alsa-lib-devel
+Requires:	libstdc++-devel
 
 %description devel
 Header files for clalsadrv library.
@@ -39,18 +39,33 @@ Pliki nagłówkowe biblioteki clalsadrv.
 %prep
 %setup -q
 
+%{__sed} -i -e 's/ldconfig /ldconfig -n $(DESTDIR)/' libs/Makefile
+
 %build
-%{__make} \
+%{__make} -C libs \
 	CXX="%{__cxx}" \
-	CPPFLAGS="%{rpmcxxflags} -fPIC -I. -D_REENTRANT -DPOSIX_THREAD_SEMANTICS"
+	CPPFLAGS="%{rpmcxxflags} %{rpmcppflags} -fPIC -I. -D_REENTRANT -D_POSIX_THREAD_SEMANTICS -Wall"
+
+ln -sf libclalsadrv.so.2.0.0 libs/libclalsadrv.so
+
+LDLIBS="-lasound" \
+%{__make} -C apps \
+	CXX="%{__cxx}" \
+	CPPFLAGS="%{rpmcxxflags} %{rpmcppflags} -I../libs -DVERSION=\"%{version}\" -Wall" \
+	LDFLAGS="%{rpmldflags} -L../libs"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}}
+#install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}}
 
-%{__make} install \
-	CLALSADRV_LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
-	CLALSADRV_INCDIR=$RPM_BUILD_ROOT%{_includedir}
+%{__make} -C libs install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	PREFIX=%{_prefix} \
+	LIBDIR=%{_lib}
+
+%{__make} -C apps install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	PREFIX=%{_prefix}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -61,8 +76,10 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS
+%attr(755,root,root) %{_bindir}/alsa-latency
+%attr(755,root,root) %{_bindir}/alsa-loopback
 %attr(755,root,root) %{_libdir}/libclalsadrv.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libclalsadrv.so.1
+%attr(755,root,root) %ghost %{_libdir}/libclalsadrv.so.2
 
 %files devel
 %defattr(644,root,root,755)
