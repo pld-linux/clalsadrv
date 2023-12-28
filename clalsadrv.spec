@@ -9,9 +9,10 @@ Source0:	http://kokkinizita.linuxaudio.org/linuxaudio/downloads/%{name}-%{versio
 # Source0-md5:	be123e1701e4b6c6300907df949bd71c
 URL:		http://kokkinizita.linuxaudio.org/linuxaudio/
 BuildRequires:	alsa-lib-devel
-BuildRequires:	clthreads-devel
+BuildRequires:	clthreads-devel >= 2.4.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	sed >= 4.0
+Requires:	clthreads >= 2.4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
